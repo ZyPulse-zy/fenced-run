@@ -17,6 +17,6 @@ jobs:
     runs-on: ubuntu-24.04
     container: alpine:3.22
     steps:
-      - run: apk add --no-cache build-base python3 git
+      - run: apk add --no-cache build-base python3 git linux-headers
       - uses: actions/checkout@v4
       - run: make test

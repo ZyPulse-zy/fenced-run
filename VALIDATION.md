@@ -27,3 +27,9 @@ all effects. Filesystem stalls and scheduler pauses are outside hard deadline
 guarantees. NSS hardware, router deployment and game performance are untested.
 
 Remote CI status is recorded separately after its actual run is observed.
+
+Remote run 39049527981: Linux/glibc, both sanitizer variants, and the
+real-kernel namespace integration passed. Alpine musl initially stopped at
+compiling the seccomp test helper because linux/filter.h was missing. The CI
+container now explicitly installs linux-headers; this failure was not reported
+as a passing musl test.
