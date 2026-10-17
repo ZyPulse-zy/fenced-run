@@ -12,9 +12,9 @@ jobs:
       - name: Verify source bundle and commit
         run: |
           base64 -d .bootstrap/source.bundle.b64 > /tmp/source.bundle
-          echo '19602a9fd571ea645ad5120506aa2e45df4820372eaa86b4e517189a47d3bec3  /tmp/source.bundle' | sha256sum -c -
+          echo 'd2b438d184c67b601fb00f1a059bd846756254420180597f3b48f9ef401e9575  /tmp/source.bundle' | sha256sum -c -
           git fetch /tmp/source.bundle main:refs/remotes/import/main
-          test "$(git rev-parse refs/remotes/import/main)" = ed98984ef9bb0ea001ccbd255a0a91158ee8938f
+          test "$(git rev-parse refs/remotes/import/main)" = 1241797e72073b0ff7cd7d7b9397ab2f5f8d71d4
           git checkout --detach refs/remotes/import/main
       - run: make test
       - run: make sanitize
