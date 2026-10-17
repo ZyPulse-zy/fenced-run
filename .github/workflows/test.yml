@@ -10,7 +10,9 @@ jobs:
       - run: make test
       - run: make sanitize
       - run: sudo modprobe sch_cake && sudo modprobe dummy
-      - run: make clean all integration
+      - run: make clean all
+      - name: Isolated real-kernel test
+        run: sudo env FENCED_RUN_TEST_PARENT_NETNS="$(readlink /proc/self/ns/net)" unshare -n tests/test_network.sh "$PWD/fenced-run" --inside
   musl:
     runs-on: ubuntu-24.04
     container: alpine:3.22

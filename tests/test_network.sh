@@ -3,8 +3,12 @@
 set -eu
 binary=$(readlink -f "${1:-./fenced-run}")
 if [ "${2:-}" != --inside ]; then
+    FENCED_RUN_TEST_PARENT_NETNS=$(readlink /proc/self/ns/net)
+    export FENCED_RUN_TEST_PARENT_NETNS
     exec unshare -Urn "$0" "$binary" --inside
 fi
+[ -n "${FENCED_RUN_TEST_PARENT_NETNS:-}" ]
+[ "$(readlink /proc/self/ns/net)" != "$FENCED_RUN_TEST_PARENT_NETNS" ]
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 ip link add shaped0 type dummy
