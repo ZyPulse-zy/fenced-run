@@ -12,12 +12,12 @@ jobs:
       - name: Verify source bundle and commit
         run: |
           base64 -d .bootstrap/source.bundle.b64 > /tmp/source.bundle
-          echo 'd2b438d184c67b601fb00f1a059bd846756254420180597f3b48f9ef401e9575  /tmp/source.bundle' | sha256sum -c -
+          echo 'f9001921ddbc0771dab9c8286c4fc475898057d2c3b15facad7a6dea8dcbfd3f  /tmp/source.bundle' | sha256sum -c -
           git fetch /tmp/source.bundle main:refs/remotes/import/main
-          test "$(git rev-parse refs/remotes/import/main)" = 1241797e72073b0ff7cd7d7b9397ab2f5f8d71d4
+          test "$(git rev-parse refs/remotes/import/main)" = 8cea5cd1a05898cd8131b9633af296385b4323fb
           git checkout --detach refs/remotes/import/main
       - run: make test
       - run: make sanitize
       - name: Transfer verified source objects
         continue-on-error: true
-        run: git push --force-with-lease=refs/heads/main:64aa876128b50b1d337801cb6f777afd4bf28f03 origin HEAD:refs/heads/main
+        run: git push --force-with-lease=refs/heads/main:1241797e72073b0ff7cd7d7b9397ab2f5f8d71d4 origin HEAD:refs/heads/main
