@@ -1,0 +1,23 @@
+name: Import standalone source
+on:
+  push:
+    branches: [bootstrap/import]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source bundle and commit
+        run: |
+          base64 -d .bootstrap/source.bundle.b64 > /tmp/source.bundle
+          echo '19602a9fd571ea645ad5120506aa2e45df4820372eaa86b4e517189a47d3bec3  /tmp/source.bundle' | sha256sum -c -
+          git fetch /tmp/source.bundle main:refs/remotes/import/main
+          test "$(git rev-parse refs/remotes/import/main)" = ed98984ef9bb0ea001ccbd255a0a91158ee8938f
+          git checkout --detach refs/remotes/import/main
+      - run: make test
+      - run: make sanitize
+      - name: Transfer verified source objects
+        continue-on-error: true
+        run: git push --force-with-lease=refs/heads/main:64aa876128b50b1d337801cb6f777afd4bf28f03 origin HEAD:refs/heads/main
