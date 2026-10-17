@@ -1,0 +1,6 @@
+/fenced-run
+__pycache__/
+*.pyc
+/tests/no-pidfd
+/build/
+/fenced-run-procscan

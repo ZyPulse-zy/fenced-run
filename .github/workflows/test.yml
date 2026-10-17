@@ -1,0 +1,20 @@
+name: test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: make test
+      - run: make sanitize
+      - run: sudo modprobe sch_cake && sudo modprobe dummy
+      - run: make clean all integration
+  musl:
+    runs-on: ubuntu-24.04
+    container: alpine:3.22
+    steps:
+      - run: apk add --no-cache build-base python3 git
+      - uses: actions/checkout@v4
+      - run: make test
