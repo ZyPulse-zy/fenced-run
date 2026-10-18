@@ -8,12 +8,11 @@ That identifier describes a delivery artifact, not a public Git commit.
 
 The source file SHA-256 was
 `afaad2e96191fa7ab24a37f381c1b02cd34503b2445595bdbecb1d4c3e3da00f`.
-The original source was read only. This repository removes Athena's service
-roles, fixed paths, process-stop/observer APIs and environment names. It adds a
+This repository removes Athena's service roles, fixed paths,
+process-stop/observer APIs and environment names. It adds a
 single generic lock-and-run interface, pre-execution pidfd capability probe,
 strict standalone build, real process/lock tests and independent CI.
-No production credentials, topology, private connection records or deployment
-scripts are included. New development uses Yuen Su <zypulsecore@gmail.com>.
+New development uses Yuen Su <zypulsecore@gmail.com>.
 
 The original license is GPL-2.0; this derivative uses GPL-2.0-only (see COPYING).
 AI assistance was used for the extraction, implementation, tests and docs.
